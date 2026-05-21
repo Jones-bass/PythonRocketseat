@@ -1,4 +1,5 @@
-from connection import db_connection_handler
+
+from src.models.sqlite.settings.connection import db_connection_handler
 from sqlalchemy.engine import Engine
 
 
