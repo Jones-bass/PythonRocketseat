@@ -1,6 +1,6 @@
 from typing import Dict
 import re
-from src.error_types.http_bad_request import HttpBadRequestError
+from src.errors.error_types.http_bad_request import HttpBadRequestError
 from src.models.sqlite.interfaces.people_repository import PeopleRepositoryInterface
 from .interfaces.person_creator_controller import PersonCreatorControllerInterface
 
