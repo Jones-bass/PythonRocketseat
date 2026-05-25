@@ -22,6 +22,5 @@ class DBConnectionHanlder:
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.session.close()
 
-
 db_connection_handler = DBConnectionHanlder()
 db_connection_handler.connect_to_db()

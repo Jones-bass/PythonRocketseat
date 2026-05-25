@@ -3,7 +3,7 @@ from .http_types.http_request import HttpRequest
 from .http_types.http_response import HttpResponse
 from .interfaces.view_interface import ViewInterface
 
-class PessoaFIsicaListerView(ViewInterface):
+class PessoaFisicaListerView(ViewInterface):
     def __init__(self, controller: PessoaFisicaListerControllerInterface) -> None:
         self.__controller = controller
 
