@@ -19,3 +19,31 @@ class PessoaJuridicaRepository(PessoaJuridicaRepositoryInterface):
             )
 
             return juridicas
+        
+    def insert_pessoa_juridica(
+            self,
+            razao_social: str,
+            cnpj: str,
+            email: str,
+            telefone: str,
+            cidade: str
+        ) -> None:
+
+            with self.__db_connection as database:
+
+                try:
+
+                    juridica = PessoaJuridicaTable(
+                        razao_social=razao_social,
+                        cnpj=cnpj,
+                        email=email,
+                        telefone=telefone,
+                        cidade=cidade
+                    )
+
+                    database.session.add(juridica)
+                    database.session.commit()
+
+                except Exception as exception:
+                    database.session.rollback()
+                    raise exception
