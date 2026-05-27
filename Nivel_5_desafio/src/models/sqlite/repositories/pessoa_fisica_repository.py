@@ -47,3 +47,18 @@ class PessoaFisicaRepository(PessoaFisicaRepositoryInterface):
             except Exception as exception:
                 database.session.rollback()
                 raise exception
+            
+
+    def delete_pessoa_fisica(self, id: str) -> None:
+        with self.__db_connection as database:
+            try:
+                (
+                    database.session
+                    .query(PessoaFisicaTable)
+                    .filter(PessoaFisicaTable.id == id)
+                    .delete()
+                )
+                database.session.commit()
+            except Exception as exception:
+                database.session.rollback()
+                raise exception
