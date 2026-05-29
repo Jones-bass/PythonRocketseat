@@ -47,3 +47,17 @@ class PessoaJuridicaRepository(PessoaJuridicaRepositoryInterface):
                 except Exception as exception:
                     database.session.rollback()
                     raise exception
+    
+    def delete_pessoa_juridica(self, id: str) -> None:
+        with self.__db_connection as database:
+            try:
+                (
+                    database.session
+                    .query(PessoaJuridicaTable)
+                    .filter(PessoaJuridicaTable.id == id)
+                    .delete()
+                )
+                database.session.commit()
+            except Exception as exception:
+                database.session.rollback()
+                raise exception
