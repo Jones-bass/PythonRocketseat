@@ -1,4 +1,5 @@
 from sqlite3 import Connection
+from typing import Tuple
 from src.models.interface.user_repository import UserRepositoryInterface
 
 class UserRepository(UserRepositoryInterface):
@@ -14,17 +15,26 @@ class UserRepository(UserRepositoryInterface):
             ''', (username, password, 0)
         )
         self.__conn.commit()
-
-    def get_user_by_username(self, username: str):
+    
+    def edit_balance(self, user_id: int, new_balance: float) -> None:
         cursor = self.__conn.cursor()
         cursor.execute(
-        '''
-        SELECT id, username, password
-        FROM users
-        WHERE username = ?
-        ''', (username,)
+            '''
+            UPDATE users
+            SET balance = ?
+            WHERE id = ?
+            ''', (new_balance, user_id)
         )
-        user = cursor. fetchone()
-        return user
+        self.__conn.commit()
 
-            
+    def get_user_by_username(self, username: str) -> Tuple[int, str, str]:
+        cursor = self.__conn.cursor()
+        cursor.execute(
+            '''
+            SELECT id, username, password, balance
+            FROM users,
+            WHERE username = ?
+            ''', (username,)
+        )
+        user = cursor.fetchone()
+        return user
