@@ -27,12 +27,12 @@ class UserRepository(UserRepositoryInterface):
         )
         self.__conn.commit()
 
-    def get_user_by_username(self, username: str) -> Tuple[int, str, str]:
+    def get_user_by_username(self, username: str):
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
             SELECT id, username, password, balance
-            FROM users,
+            FROM users
             WHERE username = ?
             ''', (username,)
         )
