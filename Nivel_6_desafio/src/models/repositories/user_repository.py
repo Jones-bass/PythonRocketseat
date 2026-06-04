@@ -5,13 +5,13 @@ class UserRepository(UserRepositoryInterface):
     def __init__(self, conn: Connection) -> None:
         self.__conn = conn
 
-    def registry_user(self, username: str, password: str) -> None:
+    def registry_user(self, username: str, email: str, password: str) -> None:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
-            INSERT INTO users (username, password) 
+            INSERT INTO users (username, email, password) 
             VALUES (?, ?, ?);
-            ''', (username, password)
+            ''', (username, email, password)
         )
         self.__conn.commit()
 
