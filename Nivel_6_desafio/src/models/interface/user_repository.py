@@ -8,5 +8,5 @@ class UserRepositoryInterface(ABC):
         pass
 
     @abstractmethod
-    def get_user_by_username(self, username: str):
+    def get_user_by_username(self, email: str):
         pass

@@ -16,15 +16,15 @@ class UserRepository(UserRepositoryInterface):
         )
         self.__conn.commit()
 
-    def get_user_by_username(self, username: str):
+    def get_user_by_username(self, email: str):
         cursor = self.__conn.cursor()
         cursor.execute(
             """
-            SELECT id, username, password, email
+            SELECT id, email, password, email
             FROM users
-            WHERE username = ?
+            WHERE email = ?
             """,
-            (username,)
+            (email,)
         )
 
         return cursor.fetchone()

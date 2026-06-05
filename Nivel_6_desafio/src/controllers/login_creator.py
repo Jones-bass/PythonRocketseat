@@ -11,17 +11,17 @@ class LoginCreator(LoginCreatorInterface):
         self.__jwt_handler = JwtHandler()
         self.__password_handle = PasswordHandler()
 
-    def create(self, username: str, password: str) -> Dict:
-        user = self.__find_user(username)
+    def create(self, email: str, password: str) -> Dict:
+        user = self.__find_user(email)
         user_id = user[0]
         hashed_password = user[2]
 
         self.__verify_correct_password(password, hashed_password)
         token = self.__create_jwt_token(user_id)
-        return self.__format_response(username, token)
+        return self.__format_response(email, token)
 
-    def __find_user(self, username: str) -> Tuple[int, str, str]:
-        user = self.__user_repository.get_user_by_username(username)
+    def __find_user(self, email: str) -> Tuple[int, str, str]:
+        user = self.__user_repository.get_user_by_username(email)
         if not user: raise Exception("User not found")
 
         return user
@@ -35,10 +35,10 @@ class LoginCreator(LoginCreatorInterface):
         token = self.__jwt_handler.create_jwt_token(payload)
         return token
 
-    def __format_response(self, username: str, token: str) -> Dict:
+    def __format_response(self, email: str, token: str) -> Dict:
         return {
             "access": True,
-            "username": username,
+            "email": email,
             "token": token
         }
 

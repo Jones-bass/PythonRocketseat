@@ -9,17 +9,17 @@ class LoginCreatorView(ViewInterface):
         self.__controller = controller
 
     def handle(self, http_request: HttpRequest) -> HttpResponse:
-        username = http_request.body.get("username")
+        email = http_request.body.get("email")
         password = http_request.body.get("password")
-        self.__validate_inputs(username, password)
+        self.__validate_inputs(email, password)
 
-        response = self.__controller.create(username, password)
+        response = self.__controller.create(email, password)
         return HttpResponse(body={ "data": response }, status_code=200)
 
-    def __validate_inputs(self, username: any, password: any) -> None:
+    def __validate_inputs(self, email: any, password: any) -> None:
         if (
-            not username
+            not email
             or not password
-            or not isinstance(username, str)
+            or not isinstance(email, str)
             or not isinstance(password, str)
         ): raise HttpBadRequestError("Invalid Input")

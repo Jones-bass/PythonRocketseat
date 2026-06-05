@@ -4,4 +4,4 @@ from abc import ABC, abstractmethod
 class LoginCreatorInterface(ABC):
 
     @abstractmethod
-    def create(self, username: str, password: str) -> Dict: pass
+    def create(self, email: str, password: str) -> Dict: pass
