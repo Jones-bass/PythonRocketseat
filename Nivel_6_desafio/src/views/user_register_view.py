@@ -1,4 +1,4 @@
-from src.controllers.interfaces.user_register import UserRegisterInterface
+from src.controllers.interfaces.user_register_interface import UserRegisterInterface
 from src.views.http_types.http_request import HttpRequest
 from src.views.http_types.http_response import HttpResponse
 from src.errors.error_types.http_bad_request import HttpBadRequestError

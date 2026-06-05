@@ -1,29 +1,21 @@
 from flask import Blueprint, jsonify, request
 from src.views.http_types.http_request import HttpRequest
 
-from src.main.composer.user_register_composer import user_register_composer
-from src.main.composer.login_creator_composer import login_creator_composer
+from src.main.composer.orders_creator_composer import orders_creator_composer
 
 from src.errors.error_handler import handle_errors
 
 orders_routes_bp = Blueprint("orders_routes", __name__)
 
-@orders_routes_bp.route("/registry", methods=["POST"])
-def registry_user():
+@orders_routes_bp.route("/orders", methods=["POST"])
+def create_order():
     try:
         http_request = HttpRequest(body=request.json)
-        http_response = user_register_composer().handle(http_request)
+        http_response = orders_creator_composer().handle(http_request)
         return jsonify(http_response.body), http_response.status_code
     except Exception as exception:
         http_response = handle_errors(exception)
         return jsonify(http_response.body), http_response.status_code
 
-@orders_routes_bp.route("/orders/login", methods=["POST"])
-def create_login():
-    try:
-        http_request = HttpRequest(body=request.json)
-        http_response = login_creator_composer().handle(http_request)
-        return jsonify(http_response.body), http_response.status_code
-    except Exception as exception:
-        http_response = handle_errors(exception)
-        return jsonify(http_response.body), http_response.status_code
+
+
