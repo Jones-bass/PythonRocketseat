@@ -4,12 +4,14 @@ from src.views.http_types.http_response import HttpResponse
 from src.errors.error_types.http_bad_request import HttpBadRequestError
 from .interfaces.view_interface import ViewInterface
 
+
 class OrdersCreatorView(ViewInterface):
     def __init__(self, controller: OrdersCreatorInterface) -> None:
         self.__controller = controller
 
     def handle(self, http_request: HttpRequest) -> HttpResponse:
-        user_id = http_request.body.get("user_id")
+        user_id = http_request.token_infos.get("user_id")
+
         product_name = http_request.body.get("product_name")
         quantity = http_request.body.get("quantity")
 
@@ -26,7 +28,10 @@ class OrdersCreatorView(ViewInterface):
         return HttpResponse(body=response, status_code=201)
 
     def __validate_inputs(
-        self, user_id: any, product_name: any, quantity: any
+        self,
+        user_id: any,
+        product_name: any,
+        quantity: any
     ) -> None:
         if (
             not user_id
