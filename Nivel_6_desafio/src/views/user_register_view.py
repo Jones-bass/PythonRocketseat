@@ -18,11 +18,16 @@ class UserRegisterView(ViewInterface):
         response = self.__controller.registry(username, password, email)
         return HttpResponse(body={ "data": response }, status_code=201)
 
-    def __validate_inputs(self, username: any, password: any, email: str ) -> None:
+    def __validate_inputs(self, username: any, password: any, email: str) -> None:
         if (
             not username
             or not email
             or not password
             or not isinstance(username, str)
             or not isinstance(password, str)
-        ): raise HttpBadRequestError("Invalid Input")
+            or not isinstance(email, str)
+        ):
+            raise HttpBadRequestError("Invalid Input")
+
+        if len(password) < 8:
+            raise HttpBadRequestError("A senha deve ter no mínimo 8 caracteres")

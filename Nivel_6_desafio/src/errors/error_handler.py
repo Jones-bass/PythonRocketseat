@@ -1,9 +1,9 @@
-from src.views.http_types.http_response import HttpResponse
 from .error_types.http_bad_request import HttpBadRequestError
-
+from .error_types.http_unauthorized import HttpUnauthorizedError
+from src.views.http_types.http_response import HttpResponse
 
 def handle_errors(error: Exception) -> HttpResponse:
-    if isinstance(error, HttpBadRequestError):
+    if isinstance(error, (HttpBadRequestError, HttpUnauthorizedError)):
         return HttpResponse(
             status_code=error.status_code,
             body={
@@ -21,8 +21,8 @@ def handle_errors(error: Exception) -> HttpResponse:
         body={
             "errors": [
                 {
-                    "title": "ServerError",
-                    "detail": "Internal Server Error"
+                    "title": "Server Error",
+                    "detail": str(error)
                 }
             ]
         }
