@@ -29,9 +29,6 @@ class UserRepository(UserRepositoryInterface):
             if "UNIQUE constraint failed: users.email" in error_message:
                 raise HttpConflictError("Email já cadastrado")
 
-            if "UNIQUE constraint failed: users.username" in error_message:
-                raise HttpConflictError("Nome de usuário já cadastrado")
-
             raise error
 
     def get_user_by_email(self, email: str):

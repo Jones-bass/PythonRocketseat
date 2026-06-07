@@ -18,14 +18,15 @@ class LoginCreateController(LoginCreatorInterface):
     def create(self, email: str, password: str) -> Dict:
         user = self.__find_user(email)
 
-        user_id = user["id"]
-        hashed_password = user["password"]
+        user_id = user[0]
+        user_email = user[2]
+        hashed_password = user[3]
 
         self.__verify_correct_password(password, hashed_password)
 
         token = self.__create_jwt_token(user_id)
 
-        return self.__format_response(user["email"], token)
+        return self.__format_response(user_email, token)
 
     def __find_user(self, email: str) -> Dict:
         user = self.__user_repository.get_user_by_email(email)
