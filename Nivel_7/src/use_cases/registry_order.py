@@ -1,8 +1,12 @@
 from datetime import datetime
+
 from src.errors.error_handler import error_handler
-from src.main.http_types.http_response import HttpResponse
-from src.main.http_types.http_request import HttpRequest
-from src.models.repository.interfaces.orders_repository import OrdersRepositoryInterface
+
+from ..main.http_types.http_response import HttpResponse
+
+from ..main.http_types.http_request import HttpRequest
+
+from ..models.repository.interfaces.orders_repository import OrdersRepositoryInterface
 
 
 class RegistryOrder:
