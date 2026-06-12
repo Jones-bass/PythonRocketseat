@@ -1,4 +1,4 @@
-from ..main.http_types.http_request import HttpRequest
+from src.main.http_types.http_request import HttpRequest
 from .registry_order import RegistryOrder
 
 class OrdersRepositoryMock:
