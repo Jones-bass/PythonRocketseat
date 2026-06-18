@@ -23,7 +23,7 @@ class OrdersRepositoryInterface(ABC):
     def select_by_object_id(self, object_id: str) -> list: pass
 
     @abstractmethod
-    def edit_registry(self) -> None: pass
+    def edit_registry(self, order_id: str, update_fields: str) -> None: pass
 
     @abstractmethod
     def edit_many_registry(self) -> None: pass 
