@@ -4,6 +4,7 @@ from src.main.http_types.http_response import HttpResponse
 from src.errors.types.http_not_found import HttpNotFoundError
 from src.errors.error_handler import error_handler
 
+
 class RegistryFinder:
     def __init__(self, orders_repository: OrdersRepositoryInterface) -> None:
         self.__orders_repository = orders_repository
@@ -18,17 +19,13 @@ class RegistryFinder:
 
     def __search_order(self, order_id: str) -> dict:
         order = self.__orders_repository.select_by_object_id(order_id)
-        if not order: raise HttpNotFoundError("Order not found")
+        if not order:
+            raise HttpNotFoundError("Order not found")
         return order
 
     def __format_response(self, order: dict) -> HttpResponse:
+        order["_id"] = str(order["_id"])
         return HttpResponse(
-            body={
-                "data":{
-                    "count": 1,
-                    "type": "Order",
-                    "attributes": order
-                }
-            },
-            status_code=200
+            body={"data": {"count": 1, "type": "Order", "attributes": order}},
+            status_code=200,
         )
