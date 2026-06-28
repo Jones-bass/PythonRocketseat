@@ -1,14 +1,5 @@
 import pika
-import json
-
-
-def rabbitmq_callback(ch, method, properties, body):
-    msg = body.decode("utf-8")
-    formatted_msg = json.loads(msg)
-    print(formatted_msg)
-    print(type(formatted_msg))
-    print(formatted_msg["msg"])
-
+from .callback import rabbitmq_callback
 
 class RabbitMQConsumer:
     def __init__(self) -> None:
@@ -19,7 +10,7 @@ class RabbitMQConsumer:
         self.__queue = "minha_queue"
         self.__channel = self.create_channel()
 
-    def create_channel(self) -> None:
+    def create_channel(self):
         connection_parameters = pika.ConnectionParameters(
             host=self.__host,
             port=self.__port,
@@ -34,7 +25,6 @@ class RabbitMQConsumer:
             queue=self.__queue,
             durable=True
         )
-
         channel.basic_consume(
             queue=self.__queue,
             auto_ack=True,

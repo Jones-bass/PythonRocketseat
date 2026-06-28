@@ -1,9 +1,8 @@
 import pika
 import json
 
-
 class RabbitMQPublisher:
-    def __init__(self):
+    def __init__(self) -> None:
         self.__host = "localhost"
         self.__port = 5672
         self.__username = "guest"
@@ -12,7 +11,7 @@ class RabbitMQPublisher:
         self.__routing_key = ""
         self.__channel = self.create_channel()
 
-    def create_channel(self) -> None:
+    def create_channel(self):
         connection_parameters = pika.ConnectionParameters(
             host=self.__host,
             port=self.__port,
@@ -22,7 +21,6 @@ class RabbitMQPublisher:
             )
         )
         channel = pika.BlockingConnection(connection_parameters).channel()
-        print(channel)
         return channel
 
     def send_message(self, body: dict):
@@ -35,6 +33,5 @@ class RabbitMQPublisher:
             )
         )
 
-
 rabbit_mq_publisher = RabbitMQPublisher()
-rabbit_mq_publisher.send_message({"msg": "Testando Msg"})
+rabbit_mq_publisher.send_message({ "msg": "Escrevendo no Telegram" })
